@@ -90,6 +90,13 @@ A mathlib bump has two phases. The first is **mechanical and scriptable**: point
 `lake-manifest.json`, fetch the prebuilt oleans (`lake exe cache get`), and `lake build`.
 That part is the same every time — automate it.
 
+**Before the second phase, read the new version's release notes** ([Primary
+sources](#primary-sources)). This is the cheapest win in the whole bump and the easiest step to skip: Lean's
+notes document the Lean-core behavior changes *with the official migration fixes*, so you patch the biggest
+category — the defeq/transparency cluster — in one character (`simpa using!` / `convert!`) instead of
+re-deriving it by hand across dozens of sites. (This catalog was first built without reading them, and the
+fix it hand-rolls for that cluster is exactly the one the 4.31 notes state outright. Don't repeat that.)
+
 The second phase is **this catalog**: the cascade of source breaks the new mathlib
 introduces, which no script can fix for you. So an automated bump that ends in a *red
 build* isn't a failure of the automation — it's the normal hand-off point, and that red
